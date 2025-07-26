@@ -1,6 +1,7 @@
 import { useState } from "react";
-import Navbar from "./Components/Navbar/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
+import Footer from "./Components/Footer/Footer";
+import Navbar from "./Components/Navbar/Navbar";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -8,6 +9,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <Footer />
     </Router>
   );
 }
