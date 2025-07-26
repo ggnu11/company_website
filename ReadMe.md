@@ -23,3 +23,41 @@ app.listen(PORT, () => {
   console.log("Server is running on port 3000");
 });
 ```
+
+5. `.gitignore` 파일 생성 후 다음 코드를 입력 후 저장
+
+```
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Environment files
+.env
+
+# Build outputs
+dist/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+```
+
+## Frontend
+
+### React + Vite 설치
+
+1. frontend 폴더에서 `pm create vite@latest --template react` 명령어로 `vite` 설치.
