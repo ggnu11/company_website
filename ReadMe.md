@@ -61,3 +61,13 @@ Thumbs.db
 ### React + Vite 설치
 
 1. frontend 폴더에서 `pm create vite@latest --template react` 명령어로 `vite` 설치.
+
+2. `npm install tailwindcss @tailwindcss/vite` 명령어로 `tailwindcss` 설치
+
+3. `눈누`에서 폰트 코드 복사 후 `index.css`에 복사/붙여넣기
+
+4. `Compontent -> Navbar` 폴더 생성 후 `Navbar.jsx` 생성.
+
+5. `npm install react-router-dom`으로 라우터 설치
+
+6. `npm install react-icons --save` 명령어 실행
