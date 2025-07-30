@@ -56,6 +56,47 @@ build/
 Thumbs.db
 ```
 
+6. MongoDB
+
+- [MongoDB](https://cloud.mongodb.com/v2/68621d1b7aa4f563a2281739#/clusters/starterTemplates) 에서 클러스터를 생성한다.
+
+- `Connect - Drivers - Add your connection string into your application code` 의 코드를 복사한다.
+
+- `backend` 폴더 안의 `.env` 파일을 생성하고 해당 파일에 `MONGO_URI={복사한 코드}`를 추가한다.
+
+- 복사한 코드 안의 `<db_password>`에 비밀번호를 입력한다.
+
+- 터미널에서 `backend` 폴더로 이동 후 `npm install dotenv` 명령어를 입력한다.
+
+- `index.js`파일 상단에 `require("dotenv").config()`를 추가한다.
+
+- 터미널에 `npm install mongoose`를 입력하여 페키지를 설치한다.
+
+- `index.js`에 다음 코드를 넣는다.
+
+```json
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+
+const app = express();
+const PORT = 3000;
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB와 연결이 되었습니다."))
+  .catch((error) => console.log("MongoDB와 연결에 실패했습니다:", error));
+
+app.listen(PORT, () => {
+  console.log("Server is running on port 3000");
+});
+
+```
+
 ## Frontend
 
 ### React + Vite 설치
