@@ -97,7 +97,11 @@ app.listen(PORT, () => {
 
 ```
 
-- `npm install bcrypt` 명령어로 비밀번호 암호화 패키지 설치
+- `npm install bcrypt` 명령어로 비밀번호 암호화 패키지 설치.
+
+- `npm install axios` 명령어로 axios 설치.
+
+- `npm install jsonwebtoken` 명령어로 jwt 패키지 설치.
 
 ## Frontend
 
