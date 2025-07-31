@@ -103,6 +103,8 @@ app.listen(PORT, () => {
 
 - `npm install jsonwebtoken` 명령어로 jwt 패키지 설치.
 
+- `npm i cookie-parser` 명령어 실행.
+
 ## Frontend
 
 ### React + Vite 설치
