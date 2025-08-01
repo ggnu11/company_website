@@ -105,6 +105,19 @@ app.listen(PORT, () => {
 
 - `npm i cookie-parser` 명령어 실행.
 
+- `npm install cors` 명령어 실행 후 `index.js`에 하단 코드 추가.
+
+```json
+
+const cors = require("cors");
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}));
+
+```
+
 ## Frontend
 
 ### React + Vite 설치
@@ -120,3 +133,5 @@ app.listen(PORT, () => {
 5. `npm install react-router-dom`으로 라우터 설치
 
 6. `npm install react-icons --save` 명령어 실행
+
+7. `npm install axios` 명령어 실행
