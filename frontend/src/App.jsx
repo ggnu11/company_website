@@ -1,3 +1,7 @@
+import Footer from "./Components/Footer/Footer";
+import Navbar from "./Components/Navbar/Navbar";
+import AdminNavbar from "./Components/AdminNavbar/AdminNavbar";
+
 import axios from "axios";
 import {
   createBrowserRouter,
@@ -8,8 +12,6 @@ import {
 
 import { useEffect, useState } from "react";
 
-import Footer from "./Components/Footer/Footer";
-import Navbar from "./Components/Navbar/Navbar";
 import About from "./Page/About/About";
 import Board from "./Page/Board/Board";
 import Contact from "./Page/Contact/Contact";
@@ -17,7 +19,11 @@ import Leadership from "./Page/Leadership/Leadership";
 import MainPage from "./Page/MainPage/MainPage";
 import Services from "./Page/Services/Services";
 
+import AdminContacts from "./Page/Admin/AdminContacts";
+import AdminCreatePost from "./Page/Admin/AdminCreatePost";
+import AdminEditPost from "./Page/Admin/AdminEditPost";
 import AdminLogin from "./Page/Admin/AdminLogin";
+import AdminPosts from "./Page/Admin/AdminPosts";
 
 function AuthRedirectRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -56,6 +62,15 @@ const Layout = () => {
   );
 };
 
+function AdminLayout() {
+  return (
+    <>
+      <AdminNavbar />
+      <Outlet />
+    </>
+  );
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +106,28 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AuthRedirectRoute />,
     children: [{ index: true, element: <AdminLogin /> }],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "posts",
+        element: <AdminPosts />,
+      },
+      {
+        path: "create-post",
+        element: <AdminCreatePost />,
+      },
+      {
+        path: "edit-post/:id",
+        element: <AdminEditPost />,
+      },
+      {
+        path: "contacts",
+        element: <AdminContacts />,
+      },
+    ],
   },
 ]);
 
