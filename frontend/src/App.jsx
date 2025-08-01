@@ -52,6 +52,40 @@ function AuthRedirectRoute() {
   return isAuthenticated ? <Navigate to="/admin/posts" replace /> : <Outlet />;
 }
 
+function ProtectedRoute() {
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/auth/verify-token",
+          {},
+          { withCredentials: true }
+        );
+        setIsAuthenticated(response.data.isValid);
+        setUser(response.data.user);
+      } catch (error) {
+        console.log("토큰 인증 실패: ", error);
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    };
+    verifyToken();
+  }, []);
+
+  if (isAuthenticated === null) {
+    return null;
+  }
+
+  return isAuthenticated ? (
+    <Outlet context={{ user }} />
+  ) : (
+    <Navigate to="/admin" replace />
+  );
+}
+
 const Layout = () => {
   return (
     <>
@@ -109,23 +143,28 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: <ProtectedRoute />,
     children: [
       {
-        path: "posts",
-        element: <AdminPosts />,
-      },
-      {
-        path: "create-post",
-        element: <AdminCreatePost />,
-      },
-      {
-        path: "edit-post/:id",
-        element: <AdminEditPost />,
-      },
-      {
-        path: "contacts",
-        element: <AdminContacts />,
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "posts",
+            element: <AdminPosts />,
+          },
+          {
+            path: "create-post",
+            element: <AdminCreatePost />,
+          },
+          {
+            path: "edit-post/:id",
+            element: <AdminEditPost />,
+          },
+          {
+            path: "contacts",
+            element: <AdminContacts />,
+          },
+        ],
       },
     ],
   },
