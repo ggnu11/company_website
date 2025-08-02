@@ -135,3 +135,5 @@ app.use(cors({
 6. `npm install react-icons --save` 명령어 실행
 
 7. `npm install axios` 명령어 실행
+
+8. `npm i sweetalert2` 명령어 실행
