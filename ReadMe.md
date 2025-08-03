@@ -118,6 +118,31 @@ app.use(cors({
 
 ```
 
+- 파일 저장 특허가 되어 있는 S3 버킷 생성
+
+1. AWS 계정 생성
+2. Amazon s3 선택
+3. 버킷 만들기로 버킷 생성
+4. 버킷 속성 - 정책 편집 - 버킷 ARN 복사 - 정책 생성기 클릭
+5. `Type of Policy : S3 Bucket Policy`, `Action : GetObject`, `Amazon Resource Name (ARN) : 복사한 ARN`
+6. `Add Statement` 버튼 클릭 후 `Generate Policy` 버튼 클릭
+7. `Generate Policy` 버튼 클릭 시, 화면에 표시되는 코드 복사 후 버킷 정책 편집에 붙여넣기
+8. 새 탭 열고 검색창에 `IAM` 입력
+9. 사용자 - 사용자 생성
+10. 사용자의 권한 추가 버튼 클릭 후 `직접 정책 연결` 버튼 클릭.
+11. 검색창에 `s3fu` 후 권한 추가
+12. `액세스 키 만들기` 버튼 클릭 후 `Command Line Interface(CLI)` 추가
+13. 액세스 키 생성 후 액세스, 시크릿 키 복사
+14. AWS 범용 버킷 화면에서 `폴더 만들기` 클릭 후 `post-files`, `post-images`이름의 폴더 생성
+15. `.env` 파일에 코드 추가
+
+```
+AWS_ACCESS_KEY_ID = 첫번째 복사키
+AWS_SECRET_ACCESS_KEY= 두번째 복사키
+AWS_BUCKET_NAME =abc-company1257
+AWS_REGION=ap-northeast-2
+```
+
 ## Frontend
 
 ### React + Vite 설치
