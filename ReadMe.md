@@ -143,6 +143,8 @@ AWS_BUCKET_NAME =abc-company1257
 AWS_REGION=ap-northeast-2
 ```
 
+- `npm install @aws-sdk/client-s3 multer uuid` 명령어로 설치
+
 ## Frontend
 
 ### React + Vite 설치
