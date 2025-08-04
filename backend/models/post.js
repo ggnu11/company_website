@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    filterUrl: {
+    fileUrl: {
       type: [String],
       trim: true,
     },
@@ -27,7 +27,7 @@ const postSchema = new mongoose.Schema(
       {
         ip: String,
         userAgent: String,
-        timeStamp: {
+        timestamp: {
           type: Date,
           default: Date.now,
         },
@@ -37,7 +37,7 @@ const postSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    updateAt: {
+    updatedAt: {
       type: Date,
       default: Date.now,
     },

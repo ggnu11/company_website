@@ -11,29 +11,26 @@ const s3Client = new S3Client({
   },
 });
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-});
-
 const imageUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 1024 * 1024 * 50,
+    fileSize: 5 * 1024 * 1024,
   },
 });
 
 const fileUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 1024 * 1024 * 50,
+    fileSize: 50 * 1024 * 1024,
   },
 });
 
 const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ message: "인증ㅚ지 않은 요청입니다." });
+    return res.status(401).json({ message: "인증되지 않은 요청입니다." });
   }
+  next();
 };
 
 router.post(
@@ -48,7 +45,7 @@ router.post(
 
       const uploadParams = {
         Bucket: process.env.AWS_BUCKET_NAME,
-        key: `post-images/${fileName}`,
+        Key: `post-images/${fileName}`,
         Body: file.buffer,
         ContentType: file.mimetype,
       };
@@ -57,7 +54,6 @@ router.post(
       await s3Client.send(command);
 
       const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/post-images/${fileName}`;
-
       res.json({ imageUrl });
     } catch (error) {
       console.log(error);
@@ -69,16 +65,16 @@ router.post(
 router.post(
   "/file",
   verifyToken,
-  imageUpload.single("file"),
+  fileUpload.single("file"),
   async (req, res) => {
     try {
       const file = req.file;
-      const originalname = req.body.originalName;
-      const decodedFileName = decodeURIComponent(originalname);
+      const originalName = req.body.originalName;
+      const decodedFileName = decodeURIComponent(originalName);
 
       const uploadParams = {
         Bucket: process.env.AWS_BUCKET_NAME,
-        key: `post-files/${decodedFileName}`,
+        Key: `post-files/${decodedFileName}`,
         Body: file.buffer,
         ContentType: file.mimetype,
         ContentDisposition: `attachment; filename*=UTF-8''${encodeURIComponent(
@@ -90,7 +86,6 @@ router.post(
       await s3Client.send(command);
 
       const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/post-files/${decodedFileName}`;
-
       res.json({ fileUrl });
     } catch (error) {
       console.log(error);
