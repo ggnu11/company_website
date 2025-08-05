@@ -25,6 +25,8 @@ import AdminEditPost from "./Page/Admin/AdminEditPost";
 import AdminLogin from "./Page/Admin/AdminLogin";
 import AdminPosts from "./Page/Admin/AdminPosts";
 
+import SinglePost from "./Page/SinglePost/SinglePost";
+
 function AuthRedirectRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
@@ -125,6 +127,10 @@ const router = createBrowserRouter([
       {
         path: "/board",
         element: <Board />,
+      },
+      {
+        path: "/board/:id",
+        element: <SinglePost />,
       },
       {
         path: "/our-services",
