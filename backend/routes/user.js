@@ -95,7 +95,7 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: "production",
       sameSite: "strict",
       maxAge: 24 * 60 * 60 * 1000,
     });
@@ -132,7 +132,7 @@ router.post("/logout", async (req, res) => {
 
     res.clearCookie("token", {
       httpOnly: true,
-      secure: false,
+      secure: "production",
       sameSite: "strict",
     });
 
@@ -154,7 +154,8 @@ router.delete("/delete/:userId", async (req, res) => {
     res.status(500).json({ message: "서버 오류가 발생했습니다." });
   }
 });
-router.post("/verify-token", async (req, res) => {
+
+router.post("/verify-token", (req, res) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -167,10 +168,9 @@ router.post("/verify-token", async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return res.status(200).json({ isValid: true, user: decoded });
   } catch (error) {
-    return res.status(401).json({
-      isValid: false,
-      message: "유효하지 않은 토큰입니다.",
-    });
+    return res
+      .status(401)
+      .json({ isValid: false, message: "유효하지 않은 토큰입니다." });
   }
 });
 

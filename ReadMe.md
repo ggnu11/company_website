@@ -164,3 +164,5 @@ AWS_REGION=ap-northeast-2
 7. `npm install axios` 명령어 실행
 
 8. `npm i sweetalert2` 명령어 실행
+
+9. `npm install --save @tinymce/tinymce-react` 설치
