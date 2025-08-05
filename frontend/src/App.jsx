@@ -2,30 +2,28 @@ import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/Navbar/Navbar";
 import AdminNavbar from "./Components/AdminNavbar/AdminNavbar";
 
-import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   createBrowserRouter,
-  Navigate,
-  Outlet,
   RouterProvider,
+  Outlet,
+  Navigate,
 } from "react-router-dom";
+import axios from "axios";
 
-import { useEffect, useState } from "react";
-
-import About from "./Page/About/About";
-import Board from "./Page/Board/Board";
-import Contact from "./Page/Contact/Contact";
-import Leadership from "./Page/Leadership/Leadership";
 import MainPage from "./Page/MainPage/MainPage";
+import About from "./Page/About/About";
+import Leadership from "./Page/Leadership/Leadership";
+import Board from "./Page/Board/Board";
+import SinglePost from "./Page/SinglePost/SinglePost";
 import Services from "./Page/Services/Services";
+import Contact from "./Page/Contact/Contact";
 
-import AdminContacts from "./Page/Admin/AdminContacts";
-import AdminCreatePost from "./Page/Admin/AdminCreatePost";
-import AdminEditPost from "./Page/Admin/AdminEditPost";
 import AdminLogin from "./Page/Admin/AdminLogin";
 import AdminPosts from "./Page/Admin/AdminPosts";
-
-import SinglePost from "./Page/SinglePost/SinglePost";
+import AdminEditPost from "./Page/Admin/AdminEditPost";
+import AdminCreatePost from "./Page/Admin/AdminCreatePost";
+import AdminContacts from "./Page/Admin/AdminContacts";
 
 function AuthRedirectRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -88,7 +86,7 @@ function ProtectedRoute() {
   );
 }
 
-const Layout = () => {
+function Layout() {
   return (
     <>
       <Navbar />
@@ -96,7 +94,7 @@ const Layout = () => {
       <Footer />
     </>
   );
-};
+}
 
 function AdminLayout() {
   return (
@@ -129,7 +127,7 @@ const router = createBrowserRouter([
         element: <Board />,
       },
       {
-        path: "/board/:id",
+        path: "/post/:id",
         element: <SinglePost />,
       },
       {
