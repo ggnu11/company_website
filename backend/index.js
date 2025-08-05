@@ -13,7 +13,8 @@ const uploadRoutes = require("./routes/upload");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    //origin: "http://localhost:5173",
+    origin: "https://ac6e9857ba60.ngrok-free.app",
     credentials: true,
   })
 );
