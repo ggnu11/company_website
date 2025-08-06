@@ -11,16 +11,21 @@ const contactRoutes = require("./routes/contact");
 const postRoutes = require("./routes/post");
 const uploadRoutes = require("./routes/upload");
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://abc-company1216.netlify.app",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://abc-company1216.netlify.app",
-      "https://*.netlify.app",
-      "https://*.onrender.com",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    origin: (origin, callback) => {
+      // 개발 서버 요청일 경우 허용
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS 차단: 허용되지 않은 출처"));
+      }
+    },
     credentials: true,
   })
 );
