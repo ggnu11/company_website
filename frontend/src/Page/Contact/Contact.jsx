@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import ContactLocale from "../../Locale/Contact.json";
+import useApi from "../../utils/api";
 
 const Contact = () => {
+  const api = useApi();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,10 +44,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/contact",
-        formData
-      );
+      const response = await api.post("/contact", formData);
 
       if (response.status === 201) {
         alert(t("contact.alerts.success"));

@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
+import useApi from "../../utils/api";
 
 const AdminPosts = () => {
+  const api = useApi();
   const [posts, setPosts] = useState([]);
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,7 +14,7 @@ const AdminPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/post");
+        const response = await api.get("/post");
         setPosts(response.data);
       } catch (error) {
         console.log("게시글 가져오기 실패: ", error);
@@ -36,9 +38,7 @@ const AdminPosts = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/api/post/${id}`, {
-          withCredentials: true,
-        });
+        await api.delete(`/post/${id}`);
         setPosts(posts.filter((post) => post._id !== id));
         Swal.fire(
           "삭제완료!",

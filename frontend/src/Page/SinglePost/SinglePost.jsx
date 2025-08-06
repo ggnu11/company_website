@@ -18,6 +18,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { format } from "date-fns";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ShareIcon from "@mui/icons-material/Share";
+import useApi from "../../utils/api";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -33,6 +34,7 @@ const PostHeader = styled(Box)(({ theme }) => ({
 }));
 
 const SinglePost = () => {
+  const api = useApi();
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
@@ -42,9 +44,7 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const postResponse = await axios.get(
-          `http://localhost:3000/api/post/${id}`
-        );
+        const postResponse = await api.get(`/post/${id}`);
         setPost(postResponse.data);
       } catch (error) {
         console.error("게시글 로딩 실패:", error);

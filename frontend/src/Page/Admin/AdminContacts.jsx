@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
+import useApi from "../../utils/api";
 
 const AdminContacts = () => {
+  const api = useApi();
   const [contacts, setContacts] = useState([]);
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,9 +17,7 @@ const AdminContacts = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/contact", {
-          withCredentials: true,
-        });
+        const response = await api.get("/contact");
 
         setContacts(response.data);
       } catch (error) {
@@ -35,11 +35,7 @@ const AdminContacts = () => {
 
   const handleStatusUpdate = async (newStatus) => {
     try {
-      await axios.put(
-        `http://localhost:3000/api/contact/${selectedContact._id}`,
-        { status: newStatus },
-        { withCredentials: true }
-      );
+      await api.put(`/contact/${selectedContact._id}`, { status: newStatus });
 
       setContacts(
         contacts.map((contact) =>
@@ -71,9 +67,7 @@ const AdminContacts = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/api/contact/${id}`, {
-          withCredentials: true,
-        });
+        await api.delete(`/contact/${id}`);
 
         setContacts(contacts.filter((contact) => contact._id !== id));
         Swal.fire("삭제완료!", "문의가 성공적으로 삭제되었습니다.", "success");

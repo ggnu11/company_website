@@ -2,8 +2,10 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
+import useApi from "../../utils/api";
 
 const AdminCreatePost = () => {
+  const api = useApi();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
@@ -53,25 +55,20 @@ const AdminCreatePost = () => {
           fileFormData.append("file", file);
           fileFormData.append("originalName", encodedFileName);
 
-          const response = await axios.post(
-            "http://localhost:3000/api/upload/file",
-            fileFormData,
-            {
-              withCredentials: true,
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              onUploadProgress: (progressEvent) => {
-                const percentCompleted = Math.round(
-                  (progressEvent.loaded * 100) / progressEvent.total
-                );
-                setUploadProgress((prev) => ({
-                  ...prev,
-                  [file.name]: percentCompleted,
-                }));
-              },
-            }
-          );
+          const response = await api.post("/upload/file", fileFormData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setUploadProgress((prev) => ({
+                ...prev,
+                [file.name]: percentCompleted,
+              }));
+            },
+          });
           return response.data.fileUrl;
         })
       );
@@ -82,12 +79,7 @@ const AdminCreatePost = () => {
         fileUrl: uploadedFiles,
       };
 
-      await axios.post("http://localhost:3000/api/post", postData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await api.post("/post", postData);
 
       setShowUploadModal(false);
       navigate("/admin/posts");
@@ -206,16 +198,11 @@ const AdminCreatePost = () => {
                     const formData = new FormData();
                     formData.append("image", blobInfo.blob());
 
-                    const response = await axios.post(
-                      "http://localhost:3000/api/upload/image",
-                      formData,
-                      {
-                        withCredentials: true,
-                        headers: {
-                          "Content-Type": "multipart/form-data",
-                        },
-                      }
-                    );
+                    const response = await api.post("/upload/image", formData, {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    });
 
                     return response.data.imageUrl;
                   } catch (error) {

@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ForumLocale from "../../Locale/Forum.json";
+import useApi from "../../utils/api";
 
 const Forum = () => {
+  const api = useApi();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [language, setLanguage] = useState(
@@ -30,7 +32,7 @@ const Forum = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/post");
+        const response = await api.get("/post");
         setPosts(response.data.slice(0, 5));
       } catch (error) {
         console.log(t("forum.errors.loadFailed"), error);

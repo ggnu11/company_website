@@ -2,8 +2,10 @@ import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useApi from "../../utils/api";
 
 const AdminEditPost = () => {
+  const api = useApi();
   const navigate = useNavigate();
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -21,9 +23,7 @@ const AdminEditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/post/${id}`
-        );
+        const response = await api.get(`/post/${id}`);
 
         setFormData({
           title: response.data.title,
@@ -81,25 +81,20 @@ const AdminEditPost = () => {
           fileFormData.append("file", file);
           fileFormData.append("originalName", encodedFileName);
 
-          const response = await axios.post(
-            "http://localhost:3000/api/upload/file",
-            fileFormData,
-            {
-              withCredentials: true,
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              onUploadProgress: (progressEvent) => {
-                const percentCompleted = Math.round(
-                  (progressEvent.loaded * 100) / progressEvent.total
-                );
-                setUploadProgress((prev) => ({
-                  ...prev,
-                  [file.name]: percentCompleted,
-                }));
-              },
-            }
-          );
+          const response = await api.post("/upload/file", fileFormData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total
+              );
+              setUploadProgress((prev) => ({
+                ...prev,
+                [file.name]: percentCompleted,
+              }));
+            },
+          });
           return response.data.fileUrl;
         })
       );
@@ -111,12 +106,7 @@ const AdminEditPost = () => {
         currentImages: currentImages,
       };
 
-      await axios.put(`http://localhost:3000/api/post/${id}`, postData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await api.put(`/post/${id}`, postData);
 
       setShowUploadModal(false);
       navigate("/admin/posts");
@@ -242,16 +232,11 @@ const AdminEditPost = () => {
                     const formData = new FormData();
                     formData.append("image", blobInfo.blob());
 
-                    const response = await axios.post(
-                      "http://localhost:3000/api/upload/image",
-                      formData,
-                      {
-                        withCredentials: true,
-                        headers: {
-                          "Content-Type": "multipart/form-data",
-                        },
-                      }
-                    );
+                    const response = await api.post("/upload/image", formData, {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    });
 
                     return response.data.imageUrl;
                   } catch (error) {

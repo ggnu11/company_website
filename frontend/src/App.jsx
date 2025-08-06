@@ -25,17 +25,16 @@ import AdminEditPost from "./Page/Admin/AdminEditPost";
 import AdminCreatePost from "./Page/Admin/AdminCreatePost";
 import AdminContacts from "./Page/Admin/AdminContacts";
 
+import useApi from "./utils/api";
+
 function AuthRedirectRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const api = useApi();
 
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/auth/verify-token",
-          {},
-          { withCredentials: true }
-        );
+        const response = await api.post("/auth/verify-token");
         setIsAuthenticated(true);
       } catch (error) {
         console.log("토큰 인증 실패: ", error);
@@ -59,11 +58,7 @@ function ProtectedRoute() {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/auth/verify-token",
-          {},
-          { withCredentials: true }
-        );
+        const response = await api.post("/auth/verify-token");
         setIsAuthenticated(response.data.isValid);
         setUser(response.data.user);
       } catch (error) {

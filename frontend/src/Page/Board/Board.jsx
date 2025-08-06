@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BoardLocale from "../../Locale/Board.json";
+import useApi from "../../utils/api";
 
 const Board = () => {
+  const api = useApi();
   const [posts, setPosts] = React.useState([]);
   const [pageSize, setPageSize] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -21,7 +23,7 @@ const Board = () => {
   React.useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/post");
+        const response = await api.get("/post");
         setPosts(response.data);
       } catch (error) {
         console.error("게시글 가져오기 실패: ", error);

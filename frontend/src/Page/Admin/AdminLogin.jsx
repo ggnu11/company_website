@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import useApi from "../../utils/api";
 
 const AdminLogin = () => {
+  const api = useApi();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -21,13 +23,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const reponse = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        formData,
-        {
-          withCredentials: true,
-        }
-      );
+      const reponse = await api.post("/auth/login", formData);
       if (reponse.data.user) {
         navigate("/admin/posts");
       }

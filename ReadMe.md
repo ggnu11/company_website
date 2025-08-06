@@ -185,6 +185,23 @@ AWS_REGION=ap-northeast-2
 
 - 상단 Backend의 6번 참고
 
+## Render 프로젝트 설정
+
+1. 오른쪽 상단의 `NEW` 버튼 클릭 후 `Web Service` 버튼 클릭
+2. 다음과 같이 프로젝트 설정
+
+- Source Code : 깃허브 연동 후 프로젝트 선택
+- Name : company_website
+- Language : Node
+- Branch : main
+- Root Directory(풀스택 프로젝트일 경우, 폴더 안의 backend 파일 지정) : backend
+- Build Command : npm install
+- Start Command : npm start
+
+3. 프로젝트 생성 후 port 복사
+
+- https://render.com/docs/web-services#port-binding
+
 ### fronted(React) 배포 (Netlify)
 
 1. Netlify 로그인
@@ -211,16 +228,3 @@ const PORT = 3000;
 // 수정 필요 (Render 필수)
 const PORT = process.env.PORT || 3000;
 ```
-
-## Render 프로젝트 설정
-
-1. 오른쪽 상단의 `NEW` 버튼 클릭 후 `Web Service` 버튼 클릭
-2. 다음과 같이 프로젝트 설정
-
-- Source Code : 깃허브 연동 후 프로젝트 선택
-- Name : company_website
-- Language : Node
-- Branch : main
-- Root Directory(풀스택 프로젝트일 경우, 폴더 안의 backend 파일 지정) : backend
-- Build Command : npm install
-- Start Command : npm start
