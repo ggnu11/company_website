@@ -166,3 +166,50 @@ AWS_REGION=ap-northeast-2
 8. `npm i sweetalert2` 명령어 실행
 
 9. `npm install --save @tinymce/tinymce-react` 설치
+
+<br/>
+
+## Full-stack 배포(Netlify + Render + MongoDB Atlas)
+
+### 배포 서비스 개요
+
+- 프론트엔드(React) → Netlify(Vercel) 사용
+- 백엔드(Express) → Render 사용
+- 데이터베이스(MongoDB) → MongoDB Atlas 사용 (클라우드 MongoDB)
+
+### MongoDB 연동
+
+- 상단 Backend의 6번 참고
+
+### fronted(React) 배포 (Netlify)
+
+1. Netlify 로그인
+2. `Add new site` 버튼 클릭 후 `Import an existing project` 클릭
+3. `Deploy with GitHub` 클릭
+4. 다음과 같이 프로젝트 설정
+
+- Project name : abc-company-web
+- Base directory(풀스택 프로젝트일 경우, 폴더 안의 frontend 파일 지정) : frontend
+- Build command : CI= npm run build
+-
+
+### 백엔드(Express) 배포 (Render)
+
+## Render 계정 생성 및 GitHub 연동
+
+1. Render 가입 후 로그인
+2. New Web Service 클릭 → GitHub와 연결
+3. todo-app 백엔드 저장소 선택 후 배포 설정
+
+## Render 프로젝트 설정
+
+1. 오른쪽 상단의 `NEW` 버튼 클릭 후 `Web Service` 버튼 클릭
+2. 다음과 같이 프로젝트 설정
+
+- Source Code : 깃허브 연동 후 프로젝트 선택
+- Name : company_website
+- Language : Node
+- Branch : main
+- Root Directory(풀스택 프로젝트일 경우, 폴더 안의 backend 파일 지정) : backend
+- Build Command : npm install
+- Start Command : npm run dev
