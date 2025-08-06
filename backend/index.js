@@ -13,7 +13,11 @@ const uploadRoutes = require("./routes/upload");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://abc-company1216.netlify.app",
+      "https://*.netlify.app",
+    ],
     credentials: true,
   })
 );
