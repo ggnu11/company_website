@@ -17,7 +17,10 @@ app.use(
       "http://localhost:5173",
       "https://abc-company1216.netlify.app",
       "https://*.netlify.app",
+      "https://*.onrender.com",
     ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     credentials: true,
   })
 );

@@ -202,6 +202,8 @@ AWS_REGION=ap-northeast-2
 
 - https://render.com/docs/web-services#port-binding
 
+  4.`Environment` 의 `Environment Variables`에 `.env` 값 추가
+
 ### fronted(React) 배포 (Netlify)
 
 1. Netlify 로그인
