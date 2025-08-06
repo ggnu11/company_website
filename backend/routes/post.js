@@ -1,7 +1,7 @@
 const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const express = require("express");
 const router = express.Router();
-const Post = require("../models/Post.js");
+const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const { marked } = require("marked");
@@ -101,7 +101,7 @@ router.get("/:id", async (req, res) => {
       htmlContent = marked.parse(post.content || "");
     } catch (error) {
       console.log("마크다운 변환 실패: ", error);
-      htmlContent = post.content || "";
+      htmlContent = post.content;
     }
 
     const responseData = {
