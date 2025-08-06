@@ -199,7 +199,15 @@ AWS_REGION=ap-northeast-2
 
 1. Render 가입 후 로그인
 2. New Web Service 클릭 → GitHub와 연결
-3. todo-app 백엔드 저장소 선택 후 배포 설정
+3. index.js 수정
+
+```js
+// 현재 (문제)
+const PORT = 3000;
+
+// 수정 필요 (Render 필수)
+const PORT = process.env.PORT || 3000;
+```
 
 ## Render 프로젝트 설정
 

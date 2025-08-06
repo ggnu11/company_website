@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const userRoutes = require("./routes/user");
 const contactRoutes = require("./routes/contact");
@@ -13,8 +13,7 @@ const uploadRoutes = require("./routes/upload");
 
 app.use(
   cors({
-    //origin: "http://localhost:5173",
-    origin: "https://ac6e9857ba60.ngrok-free.app",
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
     credentials: true,
   })
 );
