@@ -200,7 +200,7 @@ AWS_REGION=ap-northeast-2
 
 3. 프로젝트 생성 후 port 복사
 
-- https://render.com/docs/web-services#port-binding
+- https://company-website-r469.onrender.com
 
   4.`Environment` 의 `Environment Variables`에 `.env` 값 추가
 
