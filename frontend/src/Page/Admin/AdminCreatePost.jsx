@@ -55,7 +55,7 @@ const AdminCreatePost = () => {
           fileFormData.append("file", file);
           fileFormData.append("originalName", encodedFileName);
 
-          const response = await api.post("/upload/file", fileFormData, {
+          const response = await api.post("/api/upload/file", fileFormData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -79,7 +79,7 @@ const AdminCreatePost = () => {
         fileUrl: uploadedFiles,
       };
 
-      await api.post("/post", postData);
+      await api.post("/api/post", postData);
 
       setShowUploadModal(false);
       navigate("/admin/posts");

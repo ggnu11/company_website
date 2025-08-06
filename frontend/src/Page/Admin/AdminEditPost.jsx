@@ -23,7 +23,7 @@ const AdminEditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await api.get(`/post/${id}`);
+        const response = await api.get(`/api/post/${id}`);
 
         setFormData({
           title: response.data.title,
@@ -81,7 +81,7 @@ const AdminEditPost = () => {
           fileFormData.append("file", file);
           fileFormData.append("originalName", encodedFileName);
 
-          const response = await api.post("/upload/file", fileFormData, {
+          const response = await api.post("/api/upload/file", fileFormData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
@@ -106,7 +106,7 @@ const AdminEditPost = () => {
         currentImages: currentImages,
       };
 
-      await api.put(`/post/${id}`, postData);
+      await api.put(`/api/post/${id}`, postData);
 
       setShowUploadModal(false);
       navigate("/admin/posts");

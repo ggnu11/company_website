@@ -23,7 +23,7 @@ const Board = () => {
   React.useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await api.get("/post");
+        const response = await api.get("/api/post");
         setPosts(response.data);
       } catch (error) {
         console.error("게시글 가져오기 실패: ", error);

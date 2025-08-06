@@ -44,7 +44,7 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const postResponse = await api.get(`/post/${id}`);
+        const postResponse = await api.get(`/api/post/${id}`);
         setPost(postResponse.data);
       } catch (error) {
         console.error("게시글 로딩 실패:", error);

@@ -14,7 +14,7 @@ const AdminPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await api.get("/post");
+        const response = await api.get("/api/post");
         setPosts(response.data);
       } catch (error) {
         console.log("게시글 가져오기 실패: ", error);
@@ -38,7 +38,7 @@ const AdminPosts = () => {
 
     if (result.isConfirmed) {
       try {
-        await api.delete(`/post/${id}`);
+        await api.delete(`/api/post/${id}`);
         setPosts(posts.filter((post) => post._id !== id));
         Swal.fire(
           "삭제완료!",

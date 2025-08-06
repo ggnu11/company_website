@@ -32,7 +32,7 @@ const Forum = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await api.get("/post");
+        const response = await api.get("/api/post");
         setPosts(response.data.slice(0, 5));
       } catch (error) {
         console.log(t("forum.errors.loadFailed"), error);

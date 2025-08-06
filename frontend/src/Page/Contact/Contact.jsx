@@ -44,7 +44,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/contact", formData);
+      const response = await api.post("/api/contact", formData);
 
       if (response.status === 201) {
         alert(t("contact.alerts.success"));
