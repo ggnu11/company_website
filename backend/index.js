@@ -14,15 +14,18 @@ const uploadRoutes = require("./routes/upload");
 const allowedOrigins = [
   "http://localhost:5173",
   "https://abc-company1216.netlify.app",
+  process.env.FRONTEND_URL,
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
       // 개발 서버 요청일 경우 허용
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.filter(Boolean).includes(origin)) {
         callback(null, true);
       } else {
+        console.log("CORS 차단된 출처:", origin);
+        console.log("허용된 출처들:", allowedOrigins.filter(Boolean));
         callback(new Error("CORS 차단: 허용되지 않은 출처"));
       }
     },
