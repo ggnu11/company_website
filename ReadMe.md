@@ -177,6 +177,10 @@ AWS_REGION=ap-northeast-2
 - 백엔드(Express) → Render 사용
 - 데이터베이스(MongoDB) → MongoDB Atlas 사용 (클라우드 MongoDB)
 
+### 배포 순서
+
+- MonogoDB 연동 -> Backend 배포 -> Frontend 배포
+
 ### MongoDB 연동
 
 - 상단 Backend의 6번 참고
@@ -191,7 +195,6 @@ AWS_REGION=ap-northeast-2
 - Project name : abc-company-web
 - Base directory(풀스택 프로젝트일 경우, 폴더 안의 frontend 파일 지정) : frontend
 - Build command : CI= npm run build
--
 
 ### 백엔드(Express) 배포 (Render)
 
@@ -220,4 +223,4 @@ const PORT = process.env.PORT || 3000;
 - Branch : main
 - Root Directory(풀스택 프로젝트일 경우, 폴더 안의 backend 파일 지정) : backend
 - Build Command : npm install
-- Start Command : npm run dev
+- Start Command : npm start
